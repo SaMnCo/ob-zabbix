@@ -1,0 +1,43 @@
+zabbix-server-mysql	zabbix-server-mysql/password-confirm	password	MYSQL_PASS
+zabbix-server-mysql	zabbix-server-mysql/app-password-confirm	password	MYSQL_PASS
+zabbix-server-mysql	zabbix-server-mysql/mysql/admin-pass	password	MYSQL_PASS
+# MySQL application password for zabbix-server-mysql:
+zabbix-server-mysql	zabbix-server-mysql/mysql/app-pass	password	MYSQL_PASS
+# Configure database for zabbix-server-mysql with dbconfig-common?
+zabbix-server-mysql	zabbix-server-mysql/dbconfig-install	boolean	true
+# Deconfigure database for zabbix-server-mysql with dbconfig-common?
+zabbix-server-mysql	zabbix-server-mysql/dbconfig-remove	boolean	true
+# Database type to be used by zabbix-server-mysql:
+zabbix-server-mysql	zabbix-server-mysql/database-type	select	mysql
+zabbix-frontend-php	zabbix-frontend-php/configure-apache	boolean	true
+zabbix-server-mysql	zabbix-server-mysql/mysql/admin-user	string	root
+zabbix-server-mysql	zabbix-server-mysql/passwords-do-not-match	error	
+zabbix-server-mysql	zabbix-server-mysql/internal/reconfiguring	boolean	false
+# Connection method for MySQL database of zabbix-server-mysql:
+zabbix-server-mysql	zabbix-server-mysql/mysql/method	select	unix socket
+# MySQL database name for zabbix-server-mysql:
+zabbix-server-mysql	zabbix-server-mysql/db/dbname	string	zabbix
+# Do you want to purge the database for zabbix-server-mysql?
+zabbix-server-mysql	zabbix-server-mysql/purge	boolean	false
+# Host name of the MySQL database server for zabbix-server-mysql:
+zabbix-server-mysql	zabbix-server-mysql/remote/host	select	
+# Host running the MySQL server for zabbix-server-mysql:
+zabbix-server-mysql	zabbix-server-mysql/remote/newhost	string	
+zabbix-frontend-php	zabbix-frontend-php/restart-webserver	boolean	true
+# Perform upgrade on database for zabbix-server-mysql with dbconfig-common?
+zabbix-server-mysql	zabbix-server-mysql/dbconfig-upgrade	boolean	true
+zabbix-server-mysql	zabbix-server-mysql/remove-error	select	abort
+# Do you want to back up the database for zabbix-server-mysql before upgrading?
+zabbix-server-mysql	zabbix-server-mysql/upgrade-backup	boolean	true
+zabbix-agent	zabbix-agent/server	string	
+# Reinstall database for zabbix-server-mysql?
+zabbix-server-mysql	zabbix-server-mysql/dbconfig-reinstall	boolean	false
+zabbix-server-mysql	zabbix-server-mysql/remote/port	string	
+zabbix-server-mysql	zabbix-server-mysql/install-error	select	abort
+zabbix-server-mysql	zabbix-server-mysql/internal/skip-preseed	boolean	false
+zabbix-server-mysql	zabbix-server-mysql/upgrade-error	select	abort
+# MySQL username for zabbix-server-mysql:
+zabbix-server-mysql	zabbix-server-mysql/db/app-user	string	zabbix
+zabbix-server-mysql	zabbix-server-mysql/server	note	
+zabbix-server-mysql	zabbix-server-mysql/missing-db-package-error	select	abort
+
