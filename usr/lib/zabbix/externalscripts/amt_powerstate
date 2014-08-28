@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e 
+
+(echo "$amtoutput" | grep "^Powerstate:" | awk '{print $2}')

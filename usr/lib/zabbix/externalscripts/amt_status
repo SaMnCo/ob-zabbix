@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e 
+
+(/bin/netcat -z -w 3 "$1" "$2"  >/dev/null 2>&1) && echo 0 || echo 1

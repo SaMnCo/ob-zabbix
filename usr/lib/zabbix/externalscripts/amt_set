@@ -1,0 +1,27 @@
+ubuntu@OrangeBox09:~$ amttool 10.14.4.11 info
+### AMT info on machine '10.14.4.11' ###
+AMT version:  8.1.40
+Hostname:     node1amt.maas
+Powerstate:   S5 (soft-off)
+Remote Control Capabilities:
+    IanaOemNumber                   157
+    OemDefinedCapabilities          IDER SOL BiosSetup 
+    SpecialCommandsSupported        PXE-boot HD-boot cd-boot 
+    SystemCapabilitiesSupported     powercycle powerdown powerup reset 
+    SystemFirmwareCapabilities      f821
+
+
+ubuntu@OrangeBox09:~$ amttool 10.14.4.11 netinfo
+Network Interface 0:
+    DhcpEnabled                     false
+    HardwareAddressDescription      Wired0
+    InterfaceMode                   SHARED_MAC_ADDRESS
+    LinkPolicy                      31
+    MACAddress                      c0-3f-d5-63-ff-59
+        DefaultGatewayAddress       10.14.4.1
+        LocalAddress                10.14.4.11
+        PrimaryDnsAddress           10.14.4.1
+        SecondaryDnsAddress         0.0.0.0
+        SubnetMask                  255.255.255.0
+
+

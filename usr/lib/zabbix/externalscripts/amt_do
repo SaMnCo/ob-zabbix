@@ -1,0 +1,60 @@
+   reset           - reset machine.
+   powerup         - turn on machine.
+   powerdown       - turn off machine.
+   powercycle      - powercycle machine.
+
+Man Page: 
+NAME
+       amttool - remotely control Intel AMT managed machines.
+
+SYNOPSIS
+       amttool host [ command ] [ arg(s) ]
+
+DESCRIPTION
+       amttool is a perl script which speaks SOAP to Intel AMT managed machines.  It can query informations about the machine in question and also send some commands for basic remote control.
+
+       host is the hostname or IP address of the machine amttool should control.  command is an optional command.
+
+       You must set fill AMT_PASSWORD environment variable with the AMT password.
+
+       For more inforamtions on Intel AMT check amt-howto(7).
+
+COMMANDS
+       info   gather information (default).
+
+       reset [ special ]
+              reset machine, with optional special command (see section below).
+
+       powerup [ special ]
+              turn on machine.
+
+       powerdown
+              turn off machine.
+
+       powercycle [ special ]
+              powercycle machine.
+
+       netinfo
+              print network configuration (requires AMT 2.5+).
+
+       netconf if link [ ip mask gw [ dns1 [ dns2 ]]]
+              configure  network interface (requires AMT 2.5+).  if is the interface handle, link the link policy.  If in doubt just feed in what the netinfo command prints.  ip is the IPv4 address, mask the netmask, gw the default gateway, dns1 and dns2 are the
+              DNS Servers.  If no IP configuration is specified the tool tries to configure the machine in shared mac address mode with dhcp, otherwise in separate mac address mode with static IP address.  Default for dns1 is the gateway address, for dns2 it  is
+              0.0.0.0.
+
+SPECIAL COMMANDS
+       Special commands can optionally be specified for reset, powerup and powercycle.  They change the default boot behavior of the machine.
+
+       bios   Asks for the BIOS boot messages being redirected to serial-over-lan.
+
+       pxe    Network boot via PXE.
+
+       hd     Boot from local disk.
+
+       hdsafe Boot from local disk (safe mode).
+
+       cd     Boot from CD/DVD.
+
+       diag   Boot in diagnostics mode.
+
+

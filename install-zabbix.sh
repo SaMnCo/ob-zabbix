@@ -37,11 +37,15 @@ apt-get install -y -qq mysql-client libmysqlclient15-dev
 apt-get install -y -qq libssl-dev libssh2-1-dev 
 # Networking & Stuff
 apt-get install -y -qq  fping wakeonlan ntp bc
+# AMT Terminal
+apt-get install -y -qq  amtterm
+
+
 
 sed -i.bak 's/^mibs\ \:/#\ mibs\ \:/' /etc/snmp/snmp.conf
 
 # Stuff
-apt-get install -y -qq htop openssl shellinabox
+apt-get install -y -qq htop openssl shellinabox eggdrop expect
 
 # Install ncftp
 apt-get install -y -qq ncftp
@@ -87,4 +91,17 @@ mysql -uroot -pubuntu zabbix < ./zabbix_ob.sql
 sleep 1
 service zabbix-server start
 
+# Prepare for agent MySQL querying
+# Reference: http://blog.themilkyway.org/2013/11/how-to-monitor-mysql-using-the-new-zabbix-template-app-mysql/
+mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'127.0.0.1' IDENTIFIED BY 'zabbix'"
+mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'localhost' IDENTIFIED BY 'zabbix'"
+mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'ubuntu'@'127.0.0.1'"
+mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'ubuntu'@'localhost'"
+mysql -uroot -pubuntu -e"flush privileges"
+cp ./my.cnf /etc/zabbix/.my.cnf
+service zabbix-agent restart
+
+# Now copy External scripts
+cp ./usr/lib/zabbix/externalscripts/* /usr/lib/zabbix/externalscripts/
+cp ./usr/lib/zabbix/alertscripts/* /usr/lib/zabbix/alertscripts/
 
