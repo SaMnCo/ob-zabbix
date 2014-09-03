@@ -18,6 +18,11 @@ MYSQL_PASS="ubuntu"
 echo "deb http://repo.zabbixzone.com/zabbix/${VERSION}/${DISTRIBUTION}/ ${DIST} main contrib non-free" | tee /etc/apt/sources.list.d/zabbix.list
 apt-key adv --keyserver ${APT_SRV} --recv-keys ${APT_KEY}
 
+# Adding the multiverse repos
+echo "deb deb http://us.archive.ubuntu.com/ubuntu/ ${DISTRIBUTION} multiverse" | tee -a /etc/apt/sources.list
+echo "deb http://us.archive.ubuntu.com/ubuntu/ ${DISTRIBUTION}-updates multiverse" | tee -a /etc/apt/sources.list
+
+
 # Updating local repos
 apt-get update -qq
 
@@ -93,10 +98,13 @@ service zabbix-server start
 
 # Prepare for agent MySQL querying
 # Reference: http://blog.themilkyway.org/2013/11/how-to-monitor-mysql-using-the-new-zabbix-template-app-mysql/
-mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'127.0.0.1' IDENTIFIED BY 'zabbix'"
-mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'localhost' IDENTIFIED BY 'zabbix'"
+# This needs a fix to implement the MYSQL_PASS above 
+mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'127.0.0.1' IDENTIFIED BY 'ubuntu'"
+mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'localhost' IDENTIFIED BY 'ubuntu'"
 mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'ubuntu'@'127.0.0.1'"
 mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'ubuntu'@'localhost'"
+mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'127.0.0.1'"
+mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'localhost'"
 mysql -uroot -pubuntu -e"flush privileges"
 cp ./my.cnf /etc/zabbix/.my.cnf
 service zabbix-agent restart
@@ -104,4 +112,11 @@ service zabbix-agent restart
 # Now copy External scripts
 cp ./usr/lib/zabbix/externalscripts/* /usr/lib/zabbix/externalscripts/
 cp ./usr/lib/zabbix/alertscripts/* /usr/lib/zabbix/alertscripts/
+mv /usr/lib/zabbix/externalscripts/jujuapi.yaml /usr/lib/zabbix/externalscripts/.jujuapi.yaml
+chmod +x /usr/lib/zabbix/externalscripts/* 
+chmod +x /usr/lib/zabbix/alertscripts/* 
+chown zabbix:zabbix /usr/lib/zabbix/externalscripts/*
+chown zabbix:zabbix /usr/lib/zabbix/alertscripts/* 
+
+
 

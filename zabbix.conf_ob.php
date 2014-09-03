@@ -14,7 +14,7 @@ $DB['SCHEMA'] = '';
 
 $ZBX_SERVER      = 'localhost';
 $ZBX_SERVER_PORT = '10051';
-$ZBX_SERVER_NAME = 'Orange Box Monitoring';
+$ZBX_SERVER_NAME = 'Canonical Monitoring';
 
 $IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
 ?>

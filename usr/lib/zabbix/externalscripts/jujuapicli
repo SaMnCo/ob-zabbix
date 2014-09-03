@@ -1,0 +1,52 @@
+#!/usr/bin/python 
+
+#
+# Copyright 2014 Canonical Ltd.
+#
+# Authors:
+#  Nicolas Thomas 
+#
+from jujuclient import Environment
+import yaml
+import argparse
+import json
+import pprint
+
+#Option parsing
+parser = argparse.ArgumentParser(description="add-unit or remove unit of a certain service")
+parser.add_argument('-c', action="store", dest="conffile", default='.jujuapi.yaml')
+parser.add_argument('choice', choices=['add-unit', 'remove-unit', 'scale-down', 'print-env'])
+parser.add_argument("charm", help="the charm or charm name")
+args = parser.parse_args()
+
+with open(args.conffile, 'r') as f:
+    conf = yaml.load(f)
+
+
+env = Environment(conf["juju-api"]["endpoint"])
+env.login(conf["juju-api"]["admin-secret"])
+#watcher = env.watch()
+watcher = env.get_watch(timeout=3)
+
+# Set up the configuration file:
+
+
+
+##print env.info()['Services'][args.charm]['Units']
+# In newer version of jujuclient
+
+
+if args.choice=='add-unit':
+    env.add_units(args.charm)
+elif args.choice=='remove-unit':
+    env.remove_units([args.charm])
+elif args.choice=='scale-down':
+    unit = env.get_stat()['services'][args.charm]['units'].keys()[1]
+    env.remove_units([unit]) 
+    print "remove :"+env.get_stat()['services'][args.charm]['units'].keys()[1]
+    #Remove the second available unit in the service (always leave one)
+elif args.choice=='print-env':
+    pprint.pprint(env.get_stat()['services'][args.charm])
+
+## Zabbix API :https://github.com/gescheit/scripts/tree/master/zabbix
+#sudo apt-get remove python-jujuclient ... sudo apt-get install python-virtualenv ... virtualenv jujuclient ... source jujuclient/bin/activate ... pip install jujuclient

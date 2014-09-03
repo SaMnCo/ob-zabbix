@@ -1,0 +1,3 @@
+juju-api:
+  endpoint: "wss://ec2-54-196-206-67.compute-1.amazonaws.com:17070"
+  admin-secret: 30ef600c08d3528b6d3f82ccf15373af
