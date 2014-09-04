@@ -15,9 +15,9 @@ import yaml
 import json
 import pprint
 
-parser = argparse.ArgumentParser(description="delete a host of a certain hostID from Zabbix")
+parser = argparse.ArgumentParser(description="delete a host with a given IP Address from Zabbix")
 parser.add_argument('-c', action="store", dest="conffile", default='.zabbixapi.yaml')
-parser.add_argument('hostid', type=int, help = 'ID of host to delete')
+parser.add_argument('hostip', type=int, help = 'IP address of host to delete')
 args = parser.parse_args()
 
 with open(args.conffile, 'r') as f:
@@ -25,5 +25,11 @@ with open(args.conffile, 'r') as f:
 
 zapi = ZabbixAPI(server=conf["zabbix-api"]["endpoint"])
 zapi.login(conf["zabbix-api"]["login"], conf["zabbix-api"]["password"])
-zapi.host.delete( { "hostid": args.hostid })
+hostid=zapi.host.get(filter={'ip': args.hostip } )
+
+if hostid:
+    id = hostid[0]["hostid"]
+    print("deleting host {0}".format(id) + " with IP Address {0}".format(args.hostip))
+    zapi.host.delete( { "hostid": id })
+
 
