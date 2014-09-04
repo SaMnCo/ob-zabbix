@@ -66,8 +66,8 @@ setcap cap_net_raw,cap_net_admin=eip /usr/bin/dumpcap
 # getcap /usr/bin/dumpcap
 # Note leaving the session is required. Will work after a reboot
 
-# CVS Systems
-apt-get install -y -qq git bzr
+# CVS & Code Systems
+apt-get install -y -qq git bzr python-pip
 
 ### Final touch
 echo "We are now ready to install Zabbix.."
@@ -113,10 +113,12 @@ service zabbix-agent restart
 cp ./usr/lib/zabbix/externalscripts/* /usr/lib/zabbix/externalscripts/
 cp ./usr/lib/zabbix/alertscripts/* /usr/lib/zabbix/alertscripts/
 mv /usr/lib/zabbix/externalscripts/jujuapi.yaml /usr/lib/zabbix/externalscripts/.jujuapi.yaml
+mv /usr/lib/zabbix/externalscripts/zabbixapi.yaml /usr/lib/zabbix/externalscripts/.zabbixapi.yaml
 chmod +x /usr/lib/zabbix/externalscripts/* 
 chmod +x /usr/lib/zabbix/alertscripts/* 
 chown zabbix:zabbix /usr/lib/zabbix/externalscripts/*
 chown zabbix:zabbix /usr/lib/zabbix/alertscripts/* 
 
-
+# Installing a local Zabbix API tool
+pip install pyzabbix
 

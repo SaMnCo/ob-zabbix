@@ -22,7 +22,6 @@ args = parser.parse_args()
 with open(args.conffile, 'r') as f:
     conf = yaml.load(f)
 
-
 env = Environment(conf["juju-api"]["endpoint"])
 env.login(conf["juju-api"]["admin-secret"])
 #watcher = env.watch()

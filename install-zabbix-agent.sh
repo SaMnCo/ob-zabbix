@@ -57,7 +57,7 @@ setcap cap_net_raw,cap_net_admin=eip /usr/bin/dumpcap
 echo "We are now ready to install Zabbix.."
 echo .
 
-# Installing Zabbix
+### Installing Zabbix
 apt-get install -y -qq zabbix-agent
 
 sed -i.bak -e 's/^#\ EnableRemoteCommands=0/EnableRemoteCommands=1/g' \

@@ -1,0 +1,6 @@
+zabbix-api:
+  endpoint: "http://localhost/zabbix"
+  login: "admin"
+  password: "ubuntu"
+
+
