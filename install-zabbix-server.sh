@@ -5,6 +5,8 @@
 #
 ################################################################################
 
+set -x
+
 # Configuring default versions
 VERSION="2.2"
 DISTRIBUTION="ubuntu"
@@ -19,9 +21,8 @@ echo "deb http://repo.zabbixzone.com/zabbix/${VERSION}/${DISTRIBUTION}/ ${DIST} 
 apt-key adv --keyserver ${APT_SRV} --recv-keys ${APT_KEY}
 
 # Adding the multiverse repos
-echo "deb deb http://us.archive.ubuntu.com/ubuntu/ ${DIST} multiverse" | tee -a /etc/apt/sources.list
-echo "deb http://us.archive.ubuntu.com/ubuntu/ ${DIST}-updates multiverse" | tee -a /etc/apt/sources.list
-
+echo "deb http://us.archive.ubuntu.com/ubuntu/ ${DIST} multiverse" | tee -a /etc/apt/sources.list.d/multiverse.list
+echo "deb http://us.archive.ubuntu.com/ubuntu/ ${DIST}-updates multiverse" | tee -a /etc/apt/sources.list.d/multiverse.list
 
 # Updating local repos
 apt-get update -qq
