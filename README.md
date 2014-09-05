@@ -36,6 +36,11 @@ OK now you may start login on http://this-vm/zabbix with default credentials adm
 
 First thing you want to do is activate all auto-discovery in Configuration/Discovery. Then you should be OK for starters
 
+Now you also need to know that there are 2 configuration files hidden for the Zabbix and Juju apis. 
+
+* /usr/lib/zabbix/externalscripts/.jujuapi.yaml: you must modify that one with your Juju environment settings (those are actually the juju-gui access credentials) 
+* /usr/lib/zabbix/externalscripts/.zabbixapi.yaml: localhost should be OK as-is but if you want to run a remote instance or if you changed the Zabbix credentials, you'll have to update those. 
+
 ### Adding workloads
 
 OK for now there is a single workload configured which is clearwater. Connect on the Zabbix node and
