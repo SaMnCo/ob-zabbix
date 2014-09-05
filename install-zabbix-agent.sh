@@ -13,7 +13,7 @@ DIST="precise"
 APT_KEY="D13D58E479EA5ED4"
 APT_SRV="keys.gnupg.net"
 MYSQL_PASS="ubuntu"
-ZABBIX_SERVER="ec2-54-68-41-89.us-west-2.compute.amazonaws.com"
+ZABBIX_SERVER="localhost"
 
 ### Pre requisite
 # Using default repository for latest Zabbix binaries

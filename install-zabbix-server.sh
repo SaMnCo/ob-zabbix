@@ -2,6 +2,9 @@
 ################################################################################
 #  
 # Script to install Zabbix Agent and Server on a Ubuntu 14.04 vanilla system
+# 
+# Copyright Samuel Cozannet 2014
+# Maintainer: Samuel Cozannet <samuel.cozannet@canonical.com>
 #
 ################################################################################
 
@@ -13,7 +16,9 @@ DISTRIBUTION="ubuntu"
 DIST="trusty"
 APT_KEY="D13D58E479EA5ED4"
 APT_SRV="keys.gnupg.net"
+# Warning this default pass is also hard-coded at the end cuz I've been lazy. 
 MYSQL_PASS="ubuntu"
+START_DB="zabbix_ob.sql"
 
 ### Pre requisite
 # Using default repository for latest Zabbix binaries
@@ -34,7 +39,9 @@ apt-get install -y -qq openipmi libopenipmi-dev
 # CURL
 apt-get install -y -qq libcurl4-openssl-dev 
 # SNMP
-apt-get install -y -qq libsnmp-dev snmp snmptt libsnmp-base libsnmp-perl libsnmp30 libsnmp-mib-compiler-perl snmp-mibs-downloader libsnmp-base libsnmp-dev snmpd
+apt-get install -y -qq libsnmp-dev snmp snmptt snmpd libsnmp-base libsnmp-perl libsnmp30 libsnmp-mib-compiler-perl libsnmp-base libsnmp-dev 
+# SNMP from multiverse (in case it fails will not remove other snmp packages)
+apt-get install -y -qq snmp-mibs-downloader
 # Jabber
 apt-get install -y -qq libiksemel-dev libiksemel3 libiksemel-utils
 # MySQL
@@ -45,8 +52,6 @@ apt-get install -y -qq libssl-dev libssh2-1-dev
 apt-get install -y -qq  fping wakeonlan ntp bc
 # AMT Terminal
 apt-get install -y -qq  amtterm
-
-
 
 sed -i.bak 's/^mibs\ \:/#\ mibs\ \:/' /etc/snmp/snmp.conf
 
@@ -93,7 +98,7 @@ service apache2 restart
 # Import default DB
 service zabbix-server stop
 sleep 1
-mysql -uroot -pubuntu zabbix < ./zabbix_ob.sql
+mysql -uroot -pubuntu zabbix < ./${START_DB}
 sleep 1
 service zabbix-server start
 
@@ -102,6 +107,7 @@ service zabbix-server start
 # This needs a fix to implement the MYSQL_PASS above 
 mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'127.0.0.1' IDENTIFIED BY 'ubuntu'"
 mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'localhost' IDENTIFIED BY 'ubuntu'"
+# I don't know if there is a bug here but the agent also requires the below
 mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'ubuntu'@'127.0.0.1'"
 mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'ubuntu'@'localhost'"
 mysql -uroot -p${MYSQL_PASS} -e"GRANT USAGE ON *.* TO 'zabbix'@'127.0.0.1'"
