@@ -19,6 +19,7 @@ APT_SRV="keys.gnupg.net"
 # Warning this default pass is also hard-coded at the end cuz I've been lazy. 
 MYSQL_PASS="ubuntu"
 START_DB="zabbix_ob.sql"
+# START_DB="zabbix_full.sql"
 
 ### Pre requisite
 # Using default repository for latest Zabbix binaries

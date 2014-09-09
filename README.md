@@ -43,7 +43,7 @@ Now you also need to know that there are 2 configuration files hidden for the Za
 
 ### Adding workloads
 
-OK for now there is a single workload configured which is clearwater. Connect on the Zabbix node and
+Connect on the Zabbix node and use the following commands: 
 
     sudo service zabbix-server stop
     sudo service zabbix-agent stop
@@ -111,7 +111,12 @@ Wanna test autoscaling?
     juju ssh clearwater-bono/0
     sudo apt-get install -y -qq stress
     stress --cpu 1 --io 2 --vm 2 --vm-bytes 512M --timeout 600
-    
+
+#### Telscale Restcomm
+
+* Simple group CPU load 
+* Autoscaling of Clearwater with auto-deletion of nodes in Zabbix when they go down
+
 ## Conclusion
 
 More to come! Let's play!! 
