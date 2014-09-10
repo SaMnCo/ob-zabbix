@@ -17,7 +17,7 @@ import pprint
 
 parser = argparse.ArgumentParser(description="delete a host with a given IP Address from Zabbix")
 parser.add_argument('-c', action="store", dest="conffile", default='.zabbixapi.yaml')
-parser.add_argument('hostip', type=int, help = 'IP address of host to delete')
+parser.add_argument('hostip', type=str, help = 'IP address of host to delete')
 args = parser.parse_args()
 
 with open(args.conffile, 'r') as f:
